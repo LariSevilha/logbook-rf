@@ -1,8 +1,8 @@
 class CreateProgressions < ActiveRecord::Migration[7.0]
   def change
     create_table :progressions do |t|
-      t.string :set
-      t.string :rep
+      t.integer :set
+      t.integer :rep
       t.string :weight
       t.integer :level
       t.references :exercise, null: false, foreign_key: true

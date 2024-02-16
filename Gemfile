@@ -9,6 +9,10 @@ gem 'devise'
 gem 'rails_admin'
 gem 'cancancan'
 gem 'bootstrap' 
+gem 'strftime'
+gem 'i18n'
+gem "kaminari"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

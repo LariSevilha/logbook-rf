@@ -23,8 +23,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_16_125607) do
   end
 
   create_table "progressions", force: :cascade do |t|
-    t.string "set"
-    t.string "rep"
+    t.integer "set"
+    t.integer "rep"
     t.string "weight"
     t.integer "level"
     t.bigint "exercise_id", null: false
