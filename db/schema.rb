@@ -11,12 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_02_16_125607) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "exercises", force: :cascade do |t|
     t.string "name"
-    t.bigint "training_id", null: false
+    t.integer "training_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["training_id"], name: "index_exercises_on_training_id"
@@ -27,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_16_125607) do
     t.integer "rep"
     t.string "weight"
     t.integer "level"
-    t.bigint "exercise_id", null: false
+    t.integer "exercise_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exercise_id"], name: "index_progressions_on_exercise_id"
