@@ -12,3 +12,4 @@ User.new({
     :password => "w3case2022",
     :password_confirmation => "w3case2022" 
   }).save
+puts "User created"

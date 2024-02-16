@@ -1,0 +1,71 @@
+<title>Treino de hoje</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    th:first-child, td:first-child {
+      width: 20%;
+    }
+    th:nth-child(2), td:nth-child(2) {
+      width: 40%;
+    }
+    th:nth-child(3), td:nth-child(3) {
+      width: 40%;
+    }
+    .inner-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .inner-table td {
+      padding: 5px;
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body class="container">
+
+<h1>Treino</h1>
+
+<% @trainings.group_by(&:date).each do |date, trainings| %>
+  <h2><%= date.strftime("%d/%m/%Y") %></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Exercício</th>
+        <th>Progressão</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% trainings.each do |training| %>
+        <% training.exercises.each do |exercise| %>
+          <tr>
+            <td><%= exercise.name %></td>
+            <td>
+              <table class="inner-table">
+                <% exercise.progressions.each do |progression| %>
+                  <tr>
+                    <td><%= progression.set %> séries</td>
+                    <td><%= progression.rep %> repetições </td>
+                    <td><%= progression.weight %> kg</td>
+                    <td><%= progression.level %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
