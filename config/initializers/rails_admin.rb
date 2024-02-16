@@ -1,29 +1,58 @@
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
-  ### Popular gems integration
-
-  ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :user
   end
   config.current_user_method(&:current_user)
 
-  ## == CancanCan ==
-  # config.authorize_with :cancancan
-
-  ## == Pundit ==
-  # config.authorize_with :pundit
-
-  ## == PaperTrail ==
-  # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-
-  ### More at https://github.com/railsadminteam/rails_admin/wiki/Base-configuration
-
-  ## == Gravatar integration ==
-  ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
-
+  ### User ###
+  config.model "User" do
+    navigation_label "Gerenciar Usuários"
+    list do
+      field :id 
+      field :name
+      field :email 
+    end
+    edit do 
+      field :name
+      field :email  
+      field :password   
+    end
+  end
+    
+  #trainig
+  config.model 'Training' do
+    navigation_label 'Treino'
+    list do
+      field :date
+    end
+    edit do
+      field :date
+      field :exercises
+    end
+  end
+  
+  #exercise
+  config.model 'Exercise' do
+    visible false
+    edit do
+      field :name
+      field :progressions
+    end
+  end
+  
+  #progression
+  config.model 'Progression' do
+    visible false
+    edit do
+      field :set
+      field :rep
+      field :weight
+      field :level
+    end
+  end
+  
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory

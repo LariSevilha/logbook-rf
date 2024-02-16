@@ -1,0 +1,33 @@
+pt:
+  activerecord:
+    models:
+      user:
+        one: "Usuário"
+        other: "Usuários"     
+      training:
+        one: "Treino"
+        other: "Treinos"
+      exercise:
+        one: "Exercício"
+        other: "Exercícios"
+      progress:
+        one: "Progresso"
+        other: "Progressão"
+    attributes:
+      user:
+        name: "Nome"
+        email: "E-mail"
+        password: "Senha"
+        passoword_confirmation: "Confirmação"
+      training:
+        date: "Data"
+        exercises: "Exercício"
+      exercise: 
+        name: "Nome"
+        progressions: "Progressão"
+      progression: 
+        weight: "Peso"
+        rep: "Repetições"
+        set: "Séries"
+        level: "Nível"
+    
