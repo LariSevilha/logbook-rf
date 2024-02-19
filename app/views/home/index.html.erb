@@ -50,7 +50,7 @@
           <thead>
             <tr>
               <th scope="col">Exercício</th>
-              <th scope="col">Progressão</th>
+              <th scope="col">Progressão</th> 
             </tr>
           </thead>
           <tbody>
@@ -62,8 +62,9 @@
                     <table class="inner-table">
                       <% exercise.progressions.each do |progression| %>
                         <tr>
-                          <td><%= progression.set %> séries</td>
-                          <td><%= progression.rep %> repetições </td>
+                          <td><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></td>
+                          <td><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></td>
+                          <td><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></td>
                           <td><%= progression.weight %> kg</td>
                           <td>
                             <% case progression.level %>

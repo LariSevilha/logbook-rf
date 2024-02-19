@@ -19,7 +19,8 @@
                 <% exercise.progressions.each do |progression| %>
                   <tr>
                     <td><%= progression.set %> séries</td>
-                    <td><%= progression.rep %> repetições </td>
+                    <td><%= progression.proposal %> repetições propostas </td>
+                    <td><%= progression.rep %> repetições feitas</td>
                     <td><%= progression.weight %> kg</td>
                     <td>
                       <% case progression.level %>

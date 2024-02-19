@@ -49,6 +49,7 @@ RailsAdmin.config do |config|
       field :set
       field :rep
       field :weight
+      field :proposal
       field :level
     end
   end
