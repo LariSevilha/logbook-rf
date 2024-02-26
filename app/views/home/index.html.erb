@@ -1,90 +1,97 @@
- 
-  <div class="menu">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light nav">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <%= image_tag('rf.png') %>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <%= link_to "Novo", class:"nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Treinos anteriores", class:"nav-link" %>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">
-               <% if current_user.present? %>
-                  <a class="nav-link">
-                    Olá, <%= current_user.name %> 
-                  </a>
-                <% else %>
-                  <a class="nav-link">
-                    Olá, visitante
-                  </a>
-                <% end %>
-              </a>
-            </li>
-          </ul>
-        </div>
+
+
+<div class="menu">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light nav">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <%= image_tag('rf.png') %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <% if current_user.present? %>
+              <span class="nav-link none">
+                Olá, <%= current_user.name %> 
+              </span>
+            <% else %>
+              <span class="nav-link none">
+                Olá, visitante
+              </span>
+            <% end %>
+          </li>
+          <li class="nav-item nav-link none">
+            <%= link_to "Novo", class:"nav-link none" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Treinos anteriores", class:"nav-link none" %>
+          </li>
+          
+          <li class="nav-item align-right">
+            <span class="nav-link none">
+            <%= image_tag('calendario.png', class: 'mb-2') %>
+            <%= I18n.l Date.today, format: "%d de %B de %Y" %>
+            </span>
+          </li>
+        </ul>
       </div>
-    </nav>  
-  </div>
+    </div>
+  </nav>  
+</div>
 
-  <div class="container">
+
+<style>
+  .date-section {
+    text-align: left;
+  }
+</style>
+<div class="container">
+  <% @trainings.group_by(&:date).each do |date, trainings| %>
     <div class="date-section">
-      <%= image_tag('calendario.png', class: 'mb-2') %>
-
-      <%= I18n.l Date.today, format: "%d de %B de %Y" %>
+      <h6><%= date.strftime("%d/%m/%Y") %></h6>
     </div>
 
-    <% @trainings.group_by(&:date).each do |date, trainings| %>
-      <h6><%= date.strftime("%d/%m/%Y") %></h6>
-
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Exercício</th>
-              <th scope="col">Progressão</th> 
-            </tr>
-          </thead>
-          <tbody>
-            <% trainings.each do |training| %>
-              <% training.exercises.each do |exercise| %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Exercício</th>
+            <th scope="col">Progressão</th> 
+          </tr>
+        </thead>
+        <tbody>
+        
+          <% trainings.each do |training| %>
+            <% training.exercises.each do |exercise| %>
+              <% exercise.progressions.each_with_index do |progression, index| %>
                 <tr>
-                  <td><%= exercise.name %></td>
-                  <td>
-                    <table class="inner-table">
-                      <% exercise.progressions.each do |progression| %>
-                        <tr>
-                          <td><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></td>
-                          <td><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></td>
-                          <td><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></td>
-                          <td><%= progression.weight %> kg</td>
-                          <td>
-                            <% case progression.level %>
-                              <% when "facil" %>
-                                <span class="level-dot easy">●</span>
-                              <% when "medio" %>
-                                <span class="level-dot medium">●</span>
-                              <% when "dificil" %>
-                                <span class="level-dot hard">●</span>
-                            <% end %>
-                          </td>
-                        </tr>
+                  <% if index == 0 %> <!-- Verifica se é a primeira progressão -->
+                    <td class="exercise-name" rowspan="<%= exercise.progressions.size %>"><%= exercise.name %></td>
+                  <% end %>
+                  <td class="progression-info">
+                    <span class="set"><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></span>
+                    <span class="proposal"><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></span>
+                    <span class="rep"><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></span>
+                    <span class="weight"><%= progression.weight %> kg</span>
+                    <span class="level">
+                      <% case progression.level %>
+                        <% when "facil" %>
+                          <span class="level-dot easy">●</span>
+                        <% when "medio" %>
+                          <span class="level-dot medium">●</span>
+                        <% when "dificil" %>
+                          <span class="level-dot hard">●</span>
                       <% end %>
-                    </table>
+                    </span>
                   </td>
                 </tr>
               <% end %>
             <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-  </div> 
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
