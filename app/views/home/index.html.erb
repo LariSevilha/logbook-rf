@@ -22,11 +22,11 @@
               </span>
             <% end %>
           </li>
-          <li class="nav-item nav-link none">
-            <%= link_to "Novo", class:"nav-link none" %>
+          <li class="nav-item nav-link-none">
+            <%= link_to "Novo", class:"nav-link-none" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Treinos anteriores", class:"nav-link none" %>
+            <%= link_to "Treinos anteriores", class:"nav-link-none" %>
           </li>
           
           <li class="nav-item align-right">
@@ -42,6 +42,7 @@
 </div>
 
 
+
 <style>
   .date-section {
     text-align: left;
@@ -52,46 +53,49 @@
     <div class="date-section">
       <h6><%= date.strftime("%d/%m/%Y") %></h6>
     </div>
-
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Exercício</th>
-            <th scope="col">Progressão</th> 
-          </tr>
-        </thead>
-        <tbody>
-        
-          <% trainings.each do |training| %>
-            <% training.exercises.each do |exercise| %>
-              <% exercise.progressions.each_with_index do |progression, index| %>
-                <tr>
-                  <% if index == 0 %> <!-- Verifica se é a primeira progressão -->
-                    <td class="exercise-name" rowspan="<%= exercise.progressions.size %>"><%= exercise.name %></td>
-                  <% end %>
-                  <td class="progression-info">
-                    <span class="set"><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></span>
-                    <span class="proposal"><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></span>
-                    <span class="rep"><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></span>
-                    <span class="weight"><%= progression.weight %> kg</span>
-                    <span class="level">
-                      <% case progression.level %>
-                        <% when "facil" %>
-                          <span class="level-dot easy">●</span>
-                        <% when "medio" %>
-                          <span class="level-dot medium">●</span>
-                        <% when "dificil" %>
-                          <span class="level-dot hard">●</span>
-                      <% end %>
-                    </span>
-                  </td>
-                </tr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th  style="width: auto;">Exercício</th>
+        <th class="text-left" style="width: auto;" colspan="5">Progressão</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <% trainings.each do |training| %>
+        <% training.exercises.each do |exercise| %>
+          <% exercise.progressions.each_with_index do |progression, index| %>
+            <tr>
+              <% if index == 0 %> <!-- Verifica se é a primeira progressão -->
+                <td style="border-left: 2px solid #dee2e6; " rowspan="<%= exercise.progressions.size %>"><%= exercise.name %></td>
               <% end %>
-            <% end %>
+              <td  style="width: auto; border-left: 2px solid #dee2e6; " >
+                <span ><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></span>
+              </td>
+              <td  style="width: auto;">
+                <span ><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></span>
+              </td>
+              <td  style="width: auto;">
+                <span ><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></span>
+              </td>
+              <td  style="width: auto;">
+                <span ><%= progression.weight %> kg</span>
+              </td>
+              <td  style="width: auto; border-right: 2px solid #dee2e6;">
+                <% case progression.level %>
+                  <% when "facil" %>
+                    <span class="level-dot easy">●</span>
+                  <% when "medio" %>
+                    <span class="level-dot medium">●</span>
+                  <% when "dificil" %>
+                    <span class="level-dot hard">●</span>
+                <% end %>
+              </td>
+              </td>
+            </tr>
           <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-</div>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+</div> 

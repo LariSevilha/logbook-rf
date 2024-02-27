@@ -1,66 +1,4 @@
-.table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  border: 1px solid #dee2e6;
-}
 
-.table thead th {
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
-  font-weight: bold;
-}
-
-.table th,
-.table td {
-  padding: 12px;
-  text-align: left;
-}
-
-.table tbody tr:hover {
-  background-color: #e2e6ea;
-}
-
-.table tbody tr {
-  transition: background-color 0.3s ease; /* Adiciona uma transição suave */
-}
-
-.table:hover tbody tr {
-  background-color: #e2e6ea; /* Altera o fundo das linhas da tabela ao passar o mouse sobre a tabela */
-}
-
-.inner-table {
-  width: 100%; /* Largura total da tabela interna */
-  border-collapse: collapse; /* Colapsar bordas da tabela */
-}
-
-.inner-table td {
-  padding: 10px; /* Espaçamento interno das células */
-  border-bottom: 1px solid #e2e8f0; /* Adicionar linha inferior */
-}
-
-.weight {
-  width: 50px; /* Define a largura fixa para o campo de peso */
-  display: inline-block; /* Garante que o campo de peso tenha uma largura fixa */
-}
-
-.progression-info span {
-  display: inline-block; /* Garante que as spans fiquem na mesma linha */
-  margin-right: 30px; /* Espaçamento entre as spans */
-  width: auto;
-  max-width: 160px; /* Define um tamanho máximo para cada span */
-  white-space: nowrap; /* Impede que o texto quebre a linha */
-
-}
-.level-dot {
-  font-size: 20px; /* Tamanho do ícone de nível */
-  vertical-align: middle; /* Alinhar verticalmente */
-}
-
-/* Cores dos níveis */
-.easy { color: green; }
-.medium { color: orange; }
-.hard { color: red; }
 
 /* Estilos para o menu */
 .menu {
@@ -84,29 +22,60 @@
   margin-right: 15px; /* Espaçamento entre os itens */
 }
 
-.navbar-nav .nav-item:last-child {
-  margin-right: 0; /* Remove o espaçamento do último item */
-}
-
-.navbar-nav .nav-item a.nav-link {
-  color: #333; /* Cor dos links */
-  text-decoration: none; /* Remove o sublinhado */
-}
-
-.navbar-nav .nav-item a.nav-link:hover {
-  color: #666; /* Cor dos links ao passar o mouse */
-}
-
-.navbar-nav .nav-item span.nav-link.none {
-  color: #333; /* Cor do texto "Olá,..." */
-  text-decoration: none; /* Remove o sublinhado */
-}
-
 .align-right {
-  margin-left: 230px;
+  margin-left: 200px;
 }
 
-.menu .navbar-nav .nav-item a.nav-link nav-link none {
-  color: black !important; /* Altera a cor do texto para preto */
-  text-decoration: none !important; /* Remove o sublinhado */
+
+.container {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+}
+
+.table th {
+  text-align: left; /* Centraliza o texto nas células de cabeçalho */
+}
+
+.table td {
+  text-align: left; /* Alinha o texto à esquerda nas células de dados */
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  border-top: 2px solid #dee2e6;
+  border-right: 2px solid #dee2e6;
+  border-left: 2px solid #dee2e6;
+}
+
+.level-dot {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.level-dot.easy { color: green; }
+.level-dot.medium { color: orange; }
+.level-dot.hard { color: red; }
+
+.exercise-name {
+  border-left: 2px solid #dee2e6; /* Adiciona uma borda à esquerda */
+}
+
+.date-section {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-link-none{
+  text-decoration: none;
 }
