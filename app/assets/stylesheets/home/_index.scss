@@ -79,3 +79,9 @@
 .nav-link-none{
   text-decoration: none;
 }
+
+@media only screen and (max-width: 600px) {
+  .align-right {
+    margin-left: 0px;
+  }
+}
