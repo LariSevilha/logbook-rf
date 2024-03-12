@@ -41,7 +41,7 @@
 <div class="container">
   <% @trainings.group_by(&:date).each do |date, trainings| %>
     <div class="date-section">
-      <h6><%= date.strftime("%d/%m/%Y") %></h6>
+      <h6 class="date"><%= date.strftime("%d/%m/%Y") %></h6>
     </div>
     <table class="table">
       <thead>
