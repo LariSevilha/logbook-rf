@@ -36,8 +36,8 @@ RailsAdmin.config do |config|
   #exercise
   config.model 'Exercise' do
     visible false
-    edit do
-      field :name
+    edit do 
+      field :exercicio
       field :progressions
     end
   end

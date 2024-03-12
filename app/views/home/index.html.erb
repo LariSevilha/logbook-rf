@@ -56,7 +56,7 @@
             <% exercise.progressions.each_with_index do |progression, index| %>
               <tr>
                 <% if index == 0 %>  
-                  <td style="border-left: 2px solid #dee2e6; " rowspan="<%= exercise.progressions.size %>"><%= exercise.name %></td>
+                  <td style="border-left: 2px solid #dee2e6; " rowspan="<%= exercise.progressions.size %>"><%= exercise.exercicio %></td>
                 <% end %>
                 <td style="width: auto; border-left: 2px solid #dee2e6; ">
                   <span><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></span>
