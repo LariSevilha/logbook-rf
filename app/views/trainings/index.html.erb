@@ -1,43 +1,91 @@
+<div class="menu">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light nav">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <%= image_tag('rf.png', class: 'navbar-logo') %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <% if current_user.present? %>
+              <span class="nav-link">
+                Olá, <%= current_user.name %> 
+              </span>
+            <% else %>
+              <span class="nav-link">
+                Olá, visitante
+              </span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Novo", rails_admin_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Treinos anteriores", trainings_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item align-right">
+            <span class="nav-link">
+              <%= image_tag('calendario.png', class: 'mb-2') %>
+              <%= I18n.l Date.today, format: "%d de %B de %Y" %>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
 
-<% @trainings.group_by(&:date).each do |date, trainings| %>
-  <h6><%= date.strftime("%d/%m/%Y") %></h6>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Exercício</th>
-        <th>Progressão</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% trainings.each do |training| %>
-        <% training.exercises.each do |exercise| %>
-          <tr>
-            <td><%= exercise.name %></td>
-            <td>
-              <table class="inner-table">
-                <% exercise.progressions.each do |progression| %>
-                  <tr>
-                    <td><%= progression.set %> séries</td>
-                    <td><%= progression.proposal %> repetições propostas </td>
-                    <td><%= progression.rep %> repetições feitas</td>
-                    <td><%= progression.weight %> kg</td>
-                    <td>
-                      <% case progression.level %>
-                        <% when "facil" %>
-                          <span style="color: green; font-size: 35px;">●</span>
-                        <% when "medio" %>
-                          <span style="color: orange; font-size: 35px;">●</span>
-                        <% when "dificil" %>
-                          <span style="color: red; font-size: 35px;">●</span>
-                        <% end %>
-                    </td>
-                  </tr>
+<div class="container">
+  <% @trainings.group_by(&:date).each do |date, trainings| %>
+    <div class="date-section">
+      <h6><%= date.strftime("%d/%m/%Y") %></h6>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: auto;">Exercício</th>
+          <th class="text-left" style="width: auto;" colspan="5">Progressão</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% trainings.each do |training| %>
+          <% training.exercises.each do |exercise| %>
+            <% exercise.progressions.each_with_index do |progression, index| %>
+              <tr>
+                <% if index == 0 %>  
+                  <td style="border-left: 2px solid #dee2e6; " rowspan="<%= exercise.progressions.size %>"><%= exercise.name %></td>
                 <% end %>
-              </table>
-            </td>
-          </tr>
+                <td style="width: auto; border-left: 2px solid #dee2e6; ">
+                  <span><%= progression.set %> <%= progression.set == 1 ? 'série' : 'séries' %></span>
+                </td>
+                <td style="width: auto;">
+                  <span><%= progression.proposal %> repetiç<%= progression.proposal == 1 ? 'ão' : 'ões' %> propost<%= progression.proposal == 1 ? 'a' : 'as' %></span>
+                </td>
+                <td style="width: auto;">
+                  <span><%= progression.rep %> repetiç<%= progression.rep.to_i > 1 ? 'ões' : 'ão' %> feit<%= progression.rep.to_i > 1 ? 'as' : 'a' %></span>
+                </td>
+                <td style="width: auto;">
+                  <span><%= progression.weight %> kg</span>
+                </td>
+                <td style="width: auto; border-right: 2px solid #dee2e6;">
+                  <% case progression.level %>
+                    <% when "facil" %>
+                      <span class="level-dot easy">●</span>
+                    <% when "medio" %>
+                      <span class="level-dot medium">●</span>
+                    <% when "dificil" %>
+                      <span class="level-dot hard">●</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
+  <%= paginate @trainings %>
+</div>
